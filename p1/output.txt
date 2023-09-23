@@ -1,0 +1,1 @@
+ID-1	Vertices: 15  Aristas: 19  Inicial: 1  Final: 12  Camino encontrado: {1->2->3->4->12}  Distancia: 26.000000  Generados: 19  Analizados: 11
