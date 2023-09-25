@@ -1,1 +1,5 @@
-ID-1	Vertices: 15  Aristas: 19  Inicial: 1  Final: 12  Camino encontrado: {1->2->3->4->12}  Distancia: 26.000000  Generados: 19  Analizados: 11
+ID-1	(DFS) Vertices: 5  Aristas: 4  Inicial: 1  Final: 5  Camino encontrado: {1->2->5}  Distancia: 3.461000  Generados: 5  Analizados: 5
+ID-2	(DFS) Vertices: 5  Aristas: 4  Inicial: 3  Final: 5  Camino encontrado: {3->1->2->5}  Distancia: 4.461000  Generados: 5  Analizados: 5
+ID-3	(DFS) Vertices: 5  Aristas: 4  Inicial: 4  Final: 1  Camino encontrado: {4->3->1}  Distancia: 2.000000  Generados: 3  Analizados: 3
+ID-4	(DFS) Vertices: 5  Aristas: 4  Inicial: 1  Final: 3  Camino encontrado: {1->3}  Distancia: 1.000000  Generados: 3  Analizados: 2
+ID-5	(DFS) Vertices: 5  Aristas: 4  Inicial: 1  Final: 1  Camino encontrado: {1}  Distancia: 0.000000  Generados: 1  Analizados: 1
