@@ -8,6 +8,10 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
+                "grafo.cpp",
+                "menu.cpp",
+                "arbol.cpp",
+                "nodo.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

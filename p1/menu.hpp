@@ -1,6 +1,6 @@
 #pragma once
 
-#include "grafo.hpp"
+#include "arbol.hpp"
 
 #include <string>
 #include <fstream>

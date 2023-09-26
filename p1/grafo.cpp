@@ -25,7 +25,28 @@ void Grafo::build_(const std::string& kNombreFicheroEntrada) {
   }
 }
 
-std::string Grafo::camino_predecesores_(const std::vector<int>& kPredecesores, const int kVerticeObjetivo) const {
+double Grafo::GetDistancia(const int kVerticeInicial, const int kVerticeFinal) const {
+  return distancias_[kVerticeInicial - 1][kVerticeFinal - 1];
+}
+
+std::vector<int> Grafo::GetSucesores(const int kVertice) const {
+  std::vector<int> sucesores;
+  for (int i{0}; i < n_; ++i) {
+    if (distancias_[kVertice - 1][i] > 0) sucesores.emplace_back(i + 1);
+  }
+  return sucesores;
+}
+
+void Grafo::Print() const {
+  for (auto& vertice : distancias_) {
+    for (auto& distancia : vertice) {
+      std::cout << distancia << ' ';
+    }
+    std::cout << '\n';
+  }
+}
+
+/*std::string Grafo::camino_predecesores_(const std::vector<int>& kPredecesores, const int kVerticeObjetivo) const {
   std::string camino{};
   int predecesor_actual{kVerticeObjetivo};
   while (predecesor_actual != kPredecesores[predecesor_actual]) {
@@ -116,13 +137,4 @@ std::string Grafo::CaminoDFS(const int kVerticeInicial, const int kVerticeObjeti
     resultado += "***Camino no encontrado***  Generados: " + std::to_string(vertices_generados) + "  Analizados: " + std::to_string(vertices_analizados);
   }
   return resultado;
-}
-
-void Grafo::Print() const {
-  for (auto& vertice : distancias_) {
-    for (auto& distancia : vertice) {
-      std::cout << distancia << ' ';
-    }
-    std::cout << '\n';
-  }
-}
+}*/
