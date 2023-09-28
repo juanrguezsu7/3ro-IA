@@ -1,9 +1,28 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingenieria y Tecnologia
+ * Inteligencia Artificial
+ *
+ * @author Juan Rodríguez Suárez. alu0101477596@ull.edu.es
+ * @date 28. septiembre .2023
+ * @brief Práctica 1 de Inteligencia Artificial. Búsquedas en amplitud y profundidad.
+ * @file grafo.cpp Contiene la implementación de la clase Grafo.
+ */
+
 #include "grafo.hpp"
 
+/**
+ * @brief Constructor de Grafo mediante un fichero de entrada.
+ * @param kNombreFicheroEntrada Nombre del fichero de datos de entrada.
+ */
 Grafo::Grafo(const std::string& kNombreFicheroEntrada) {
   build_(kNombreFicheroEntrada);
 }
 
+/**
+ * @brief Construye el Grafo a partir del fichero de entrada.
+ * @param kNombreFicheroEntrada Nombre del fichero de datos de entrada.
+ */
 void Grafo::build_(const std::string& kNombreFicheroEntrada) {
   std::ifstream fichero_entrada{kNombreFicheroEntrada};
   std::string distancia;
@@ -25,10 +44,21 @@ void Grafo::build_(const std::string& kNombreFicheroEntrada) {
   }
 }
 
+/**
+ * @brief Devuelve la distancia entre dos vértices directamente conectados.
+ * @param kVerticeInicial Vértice inicial.
+ * @param kVerticeFinal Vertice final.
+ * @return Distancia entre los dos vértices.
+ */
 double Grafo::GetDistancia(const int kVerticeInicial, const int kVerticeFinal) const {
   return distancias_[kVerticeInicial - 1][kVerticeFinal - 1];
 }
 
+/**
+ * @brief Devuelve los sucesores de un vértice.
+ * @param kVertice Vértice a calcular sus sucesores.
+ * @return Los sucesores del vértice elegido.
+ */
 std::vector<int> Grafo::GetSucesores(const int kVertice) const {
   std::vector<int> sucesores;
   for (int i{0}; i < n_; ++i) {
@@ -37,6 +67,9 @@ std::vector<int> Grafo::GetSucesores(const int kVertice) const {
   return sucesores;
 }
 
+/**
+ * @brief Imprime por pantalla la matriz de distancias del Grafo.
+ */
 void Grafo::Print() const {
   for (auto& vertice : distancias_) {
     for (auto& distancia : vertice) {
@@ -45,96 +78,3 @@ void Grafo::Print() const {
     std::cout << '\n';
   }
 }
-
-/*std::string Grafo::camino_predecesores_(const std::vector<int>& kPredecesores, const int kVerticeObjetivo) const {
-  std::string camino{};
-  int predecesor_actual{kVerticeObjetivo};
-  while (predecesor_actual != kPredecesores[predecesor_actual]) {
-    camino = std::to_string(predecesor_actual + 1) + "->" + camino;
-    predecesor_actual = kPredecesores[predecesor_actual];
-  }
-  camino = '{' + std::to_string(predecesor_actual + 1) + "->" + camino;
-  camino.pop_back();
-  camino.pop_back();
-  camino += '}';
-  return camino;
-}
-
-std::string Grafo::CaminoBFS(const int kVerticeInicial, const int kVerticeObjetivo) const {
-  std::string resultado;
-  resultado += "(BFS) Vertices: " + std::to_string(n_) + "  Aristas: " + std::to_string(m_) + "  Inicial: " + std::to_string(kVerticeInicial) + "  Final: " + std::to_string(kVerticeObjetivo) + "  ";
-  int inicial{kVerticeInicial - 1}, objetivo{kVerticeObjetivo - 1};
-  std::vector<bool> visitados;
-  visitados.resize(n_, false);
-  std::queue<int> almacen;
-  almacen.emplace(inicial);
-  std::vector<int> predecesores;
-  predecesores.resize(n_, -1);
-  predecesores[inicial] = inicial;
-  std::vector<double> distancias_totales;
-  distancias_totales.resize(n_, -1);
-  distancias_totales[inicial] = 0;
-  int vertices_generados{1}, vertices_analizados{0};
-  while (!almacen.empty()) {
-    int vertice_actual = almacen.front();
-    ++vertices_analizados;
-    if (vertice_actual == objetivo) {
-      resultado += "Camino encontrado: " + camino_predecesores_(predecesores, objetivo) + "  Distancia: " + std::to_string(distancias_totales[vertice_actual]) + "  Generados: " + std::to_string(vertices_generados) + "  Analizados: " + std::to_string(vertices_analizados);
-      return resultado;
-    }
-    almacen.pop();
-    visitados[vertice_actual] = true;
-    for (int i{0}; i < n_; ++i) {
-      if (!visitados[i] && distancias_[vertice_actual][i] > 0) {
-        distancias_totales[i] = distancias_totales[vertice_actual] + distancias_[vertice_actual][i];
-        almacen.emplace(i);
-        ++vertices_generados;
-        predecesores[i] = vertice_actual;
-      }
-    }
-  }
-  resultado += "Camino no encontrado.\tGenerados: " + std::to_string(vertices_generados) + "\tAnalizados: " + std::to_string(vertices_analizados);
-  return resultado;
-}
-
-bool Grafo::dfs_(const int kVerticeObjetivo, std::stack<int>& almacen, std::vector<int>& predecesores, std::vector<double>& distancias_totales, std::vector<bool>& visitados, int& vertices_generados, int& vertices_analizados) const {
-  if (almacen.empty()) return false;
-  ++vertices_analizados;
-  int vertice_actual{almacen.top()};
-  if (vertice_actual == kVerticeObjetivo) return true;
-  almacen.pop();
-  visitados[vertice_actual] = true;
-  for (int i{0}; i < n_; ++i) {
-    if (!visitados[i] && distancias_[vertice_actual][i] > 0) {
-      distancias_totales[i] = distancias_totales[vertice_actual] + distancias_[vertice_actual][i];
-      almacen.push(i);
-      ++vertices_generados;
-      predecesores[i] = vertice_actual;
-    }
-  }
-  return dfs_(kVerticeObjetivo, almacen, predecesores, distancias_totales, visitados, vertices_generados, vertices_analizados);
-}
-
-std::string Grafo::CaminoDFS(const int kVerticeInicial, const int kVerticeObjetivo) const {
-  std::string resultado;
-  resultado += "(DFS) Vertices: " + std::to_string(n_) + "  Aristas: " + std::to_string(m_) + "  Inicial: " + std::to_string(kVerticeInicial) + "  Final: " + std::to_string(kVerticeObjetivo) + "  ";
-  int inicial{kVerticeInicial - 1}, objetivo{kVerticeObjetivo - 1};
-  std::vector<bool> visitados;
-  visitados.resize(n_, false);
-  std::stack<int> almacen;
-  almacen.emplace(inicial);
-  std::vector<int> predecesores;
-  predecesores.resize(n_, -1);
-  predecesores[inicial] = inicial;
-  std::vector<double> distancias_totales;
-  distancias_totales.resize(n_, -1);
-  distancias_totales[inicial] = 0;
-  int vertices_generados{1}, vertices_analizados{0};
-  if (dfs_(objetivo, almacen, predecesores, distancias_totales, visitados, vertices_generados, vertices_analizados)) {
-    resultado += "Camino encontrado: " + camino_predecesores_(predecesores, objetivo) + "  Distancia: " + std::to_string(distancias_totales[objetivo]) + "  Generados: " + std::to_string(vertices_generados) + "  Analizados: " + std::to_string(vertices_analizados);
-
-  } else {
-    resultado += "***Camino no encontrado***  Generados: " + std::to_string(vertices_generados) + "  Analizados: " + std::to_string(vertices_analizados);
-  }
-  return resultado;
-}*/

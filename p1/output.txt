@@ -1,2 +1,2 @@
-ID-1	(BFS) Vertices: 6  Aristas: 7  Inicial: 1  Final: 6  Camino: {1>2>4>6}  Distancia: 3  Generados: 13  Analizados: 8
-ID-2	(BFS) Vertices: 6  Aristas: 7  Inicial: 1  Final: 4  Camino: {1>2>4}  Distancia: 1  Generados: 6  Analizados: 4
+ID-1	(BFS) Vertices: 13  Aristas: 18  Inicial: 1  Final: 11  Camino: {1>8>11}  Distancia: 239  Generados: {1, 2, 3, 8, 5, 6, 4, 8, 3, 4, 9, 11, 6, 5, 7, 8, 4, 9, 11, 4, 3, 10, 12}  Analizados: {1, 2, 3, 8, 5, 6, 4, 8, 3, 4, 9, 11}
+ID-2	(DFS) Vertices: 13  Aristas: 18  Inicial: 1  Final: 13  Camino: {1>8>11>31}  Distancia: 446  Generados: {1, 2, 3, 8, 3, 4, 9, 11, 13}  Analizados: {1, 8, 11, 13}

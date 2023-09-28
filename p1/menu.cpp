@@ -1,9 +1,26 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingenieria y Tecnologia
+ * Inteligencia Artificial
+ *
+ * @author Juan Rodríguez Suárez. alu0101477596@ull.edu.es
+ * @date 28. septiembre .2023
+ * @brief Práctica 1 de Inteligencia Artificial. Búsquedas en amplitud y profundidad.
+ * @file menu.cpp Contiene la implementación de la clase Menu.
+ */
+
 #include "menu.hpp"
 
+/**
+ * @brief Constructor de Menu.
+ */
 Menu::Menu() {
   CargarGrafo();
 }
 
+/**
+ * @brief Carga un Grafo desde un fichero de datos de entrada.
+ */
 void Menu::CargarGrafo() {
   std::string nombre;
   while (true) { 
@@ -19,6 +36,9 @@ void Menu::CargarGrafo() {
   }
 }
 
+/**
+ * @brief Imprime al fichero de salida de datos el camino en amplitud.
+ */
 void Menu::MostrarBFS() {
   Arbol arbol_busqueda{grafo_};
   int vertice_inicial, vertice_final;
@@ -32,6 +52,9 @@ void Menu::MostrarBFS() {
   output_file_.flush();
 }
 
+/**
+ * @brief Imprime al fichero de salida de datos el camino en profundidad.
+ */
 void Menu::MostrarDFS() {
   Arbol arbol_busqueda{grafo_};
   int vertice_inicial, vertice_final;
@@ -45,6 +68,9 @@ void Menu::MostrarDFS() {
   output_file_.flush();
 }
 
+/**
+ * @brief Imprime por pantalla las diferentes opciones del Menu.
+ */
 void Menu::MostrarOpciones() {
   std::string nombre;
   std::cout << "Introduzca nombre de archivo de salida de datos: ";
