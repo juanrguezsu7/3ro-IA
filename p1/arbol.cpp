@@ -61,7 +61,7 @@ bool Arbol::BFS(const int kNodoInicial, const int kNodoFinal) {
       // Si un sucesor no está en la rama lo añadimos al árbol.
       if (!nodo_actual->NodoEnRama(sucesor)) {
         if (nodo_actual->GetProfundidad() + 1 > profundidad_) ++profundidad_;
-        almacen.emplace(GenerarNodo(sucesor, distancia_nodo_actual + grafo_.GetDistancia(numero_nodo_actual, sucesor), profundidad_ + 1, nodo_actual));
+        almacen.emplace(GenerarNodo(sucesor, distancia_nodo_actual + grafo_.GetDistancia(numero_nodo_actual, sucesor), profundidad_, nodo_actual));
       }
     }
   }
@@ -117,19 +117,19 @@ bool Arbol::DFS(const int kNodoInicial, const int kNodoFinal) {
  * @return Cadena con el camino.
  */
 std::string Arbol::GetCamino() const {
-  std::string camino;
+  std::string camino{'{'};
+  std::vector<int> nodos_camino;
   Nodo* nodo_actual{nodo_final_};
   while (nodo_actual != nullptr) {
-    camino += std::to_string(nodo_actual->GetNumero());
-    camino += ">";
+    nodos_camino.emplace_back(nodo_actual->GetNumero());
     nodo_actual = nodo_actual->GetPadre();
   }
-  if (camino.length() > 0) {
-    camino.pop_back();
+  std::reverse(nodos_camino.begin(), nodos_camino.end());
+  for (auto nodo : nodos_camino) {
+    camino += std::to_string(nodo) + '>';
   }
-  std::reverse(camino.begin(), camino.end());
+  if (camino.length() > 1) camino.pop_back();
   camino += "}";
-  camino.insert(camino.begin(), 1, '{');
   return camino;
 }
 

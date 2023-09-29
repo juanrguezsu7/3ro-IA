@@ -17,6 +17,8 @@
 #include <string>
 #include <algorithm>
 #include <queue>
+#include <stack>
+#include <vector>
 
 /**
  * @brief Representa un árbol de búsqueda.
