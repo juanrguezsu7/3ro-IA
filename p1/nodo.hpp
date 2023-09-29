@@ -16,17 +16,19 @@
  */
 class Nodo {
   public:
-    Nodo(const int kNumeroNodo, const double kDistancia, Nodo* kPadre) : numero_nodo_{kNumeroNodo}, distancia_{kDistancia}, padre_{kPadre} {};
+    Nodo(const int kNumeroNodo, const double kDistancia, const int kProfundidad, Nodo* kPadre) : numero_nodo_{kNumeroNodo}, distancia_{kDistancia}, profundidad_{kProfundidad}, padre_{kPadre} {};
     Nodo* GetPadre() const {return padre_;}
     Nodo*& GetPadre() {return padre_;}
     int GetNumero() const {return numero_nodo_;};
     int& GetNumero() {return numero_nodo_;}
+    int GetProfundidad() const {return profundidad_;}
+    int& GetProfundidad() {return profundidad_;}
     double GetDistancia() const {return distancia_;}
     double& GetDistancia() {return distancia_;}
     bool NodoEnRama(const int) const;
     ~Nodo() {}
   private:
-    int numero_nodo_;
+    int numero_nodo_, profundidad_;
     double distancia_;
     Nodo* padre_{nullptr};
     

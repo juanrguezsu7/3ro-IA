@@ -18,8 +18,8 @@
  * @param kPadre Puntero al nodo padre.
  * @return Puntero al nodo generado.
  */
-Nodo* Arbol::GenerarNodo(const int kNumeroNodo, const double kDistancia, Nodo* kPadre) {
-  Nodo* nodo{new Nodo{kNumeroNodo, kDistancia, kPadre}};
+Nodo* Arbol::GenerarNodo(const int kNumeroNodo, const double kDistancia, const int kProfundidad, Nodo* kPadre) {
+  Nodo* nodo{new Nodo{kNumeroNodo, kDistancia, kProfundidad, kPadre}};
   nodos_generados_.emplace_back(nodo);
   return nodo;
 }
@@ -34,12 +34,12 @@ bool Arbol::BFS(const int kNodoInicial, const int kNodoFinal) {
   // Limpiar el árbol anterior.
   destroy_();
   // Inicializar variables.
-  head_ = GenerarNodo(kNodoInicial, 0);
   std::vector<int> sucesores;
   std::queue<Nodo*> almacen;
   Nodo* nodo_actual;
   int numero_nodo_actual;
   double distancia_nodo_actual;
+  head_ = GenerarNodo(kNodoInicial, 0, profundidad_);
   // Colocamos el nodo inicial en la cola.
   almacen.emplace(head_);
   // Mientras haya nodos en la cola y no se haya alcanzado el nodo final que se ejecute el algoritmo de búsqueda en amplitud.
@@ -60,7 +60,8 @@ bool Arbol::BFS(const int kNodoInicial, const int kNodoFinal) {
     for (auto sucesor : sucesores) {
       // Si un sucesor no está en la rama lo añadimos al árbol.
       if (!nodo_actual->NodoEnRama(sucesor)) {
-        almacen.emplace(GenerarNodo(sucesor, distancia_nodo_actual + grafo_.GetDistancia(numero_nodo_actual, sucesor), nodo_actual));
+        if (nodo_actual->GetProfundidad() + 1 > profundidad_) ++profundidad_;
+        almacen.emplace(GenerarNodo(sucesor, distancia_nodo_actual + grafo_.GetDistancia(numero_nodo_actual, sucesor), profundidad_ + 1, nodo_actual));
       }
     }
   }
@@ -77,12 +78,12 @@ bool Arbol::DFS(const int kNodoInicial, const int kNodoFinal) {
   // Limpiar el árbol anterior.
   destroy_();
   // Inicializar variables.
-  head_ = GenerarNodo(kNodoInicial, 0);
   std::vector<int> sucesores;
   std::stack<Nodo*> almacen;
   Nodo* nodo_actual;
   int numero_nodo_actual;
   double distancia_nodo_actual;
+  head_ = GenerarNodo(kNodoInicial, 0, profundidad_);
   // Colocamos el nodo inicial en la pila.
   almacen.emplace(head_);
   // Mientras haya nodos en la pila y no se haya alcanzado el nodo final que se ejecute el algoritmo de búsqueda en profundidad.
@@ -103,7 +104,8 @@ bool Arbol::DFS(const int kNodoInicial, const int kNodoFinal) {
     for (auto sucesor : sucesores) {
       // Si un sucesor no está en la rama lo añadimos al árbol.
       if (!nodo_actual->NodoEnRama(sucesor)) {
-        almacen.emplace(GenerarNodo(sucesor, distancia_nodo_actual + grafo_.GetDistancia(numero_nodo_actual, sucesor), nodo_actual));
+        if (nodo_actual->GetProfundidad() + 1 > profundidad_) ++profundidad_;
+        almacen.emplace(GenerarNodo(sucesor, distancia_nodo_actual + grafo_.GetDistancia(numero_nodo_actual, sucesor), nodo_actual->GetProfundidad() + 1, nodo_actual));
       }
     }
   }
@@ -173,11 +175,20 @@ std::string Arbol::GetAnalizados() const {
 }
 
 /**
+ * @brief Devuelve la profundidad del Arbol.
+ * @return Profundidad del Arbol.
+ */
+int Arbol::GetProfundidad() const {
+  return profundidad_;
+}
+
+/**
  * @brief Limpia toda la memoria empleada en la creación de los nodos y reasigna las variables del Arbol a su valor inicial.
  */
 void Arbol::destroy_() {
   head_ = nullptr;
   nodo_final_ = nullptr;
+  profundidad_ = 0;
   nodos_analizados_.clear();
   for (auto nodo : nodos_generados_) delete nodo;
   nodos_generados_.clear();

@@ -24,19 +24,20 @@
 class Arbol {
   public:
     Arbol(const Grafo& kGrafo) : grafo_{kGrafo} {}
-    Nodo* GenerarNodo(const int, const double, Nodo* kPadre = nullptr);
+    Nodo* GenerarNodo(const int, const double, const int kProfundidad = 0, Nodo* kPadre = nullptr);
     bool BFS(const int, const int);
     bool DFS(const int, const int);
     std::string GetCamino() const;
     double GetDistanciaCamino() const;
     std::string GetGenerados() const;
     std::string GetAnalizados() const;
+    int GetProfundidad() const;
     ~Arbol();
   private:
     Nodo* head_{nullptr};
     Nodo* nodo_final_{nullptr};
+    int profundidad_{0};
     Grafo grafo_;
-    std::vector<Nodo*> nodos_generados_;
-    std::vector<Nodo*> nodos_analizados_;
+    std::vector<Nodo*> nodos_generados_, nodos_analizados_;
     void destroy_();
 };

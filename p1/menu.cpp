@@ -47,7 +47,7 @@ void Menu::MostrarBFS() {
   std::cout << "\tVertice final: ";
   std::cin >> vertice_final;
   arbol_busqueda.BFS(vertice_inicial, vertice_final);
-  output_file_ << "ID-" << id_camino_ << "\t(BFS) Vertices: " << grafo_.GetVertices() << "  Aristas: " << grafo_.GetArcos() << "  Inicial: " << vertice_inicial << "  Final: " << vertice_final << "  Camino: " << arbol_busqueda.GetCamino() << "  Distancia: " << arbol_busqueda.GetDistanciaCamino() << "  Generados: " << arbol_busqueda.GetGenerados() << "  Analizados: " << arbol_busqueda.GetAnalizados() << '\n';
+  output_file_ << "ID-" << id_camino_ << "\t(BFS) Vertices: " << grafo_.GetVertices() << "  Aristas: " << grafo_.GetArcos() << "  Inicial: " << vertice_inicial << "  Final: " << vertice_final << "  Camino: " << arbol_busqueda.GetCamino() << "  Distancia: " << arbol_busqueda.GetDistanciaCamino() << "  Profundidad: " << arbol_busqueda.GetProfundidad() << "  Generados: " << arbol_busqueda.GetGenerados() << "  Analizados: " << arbol_busqueda.GetAnalizados() << '\n';
   ++id_camino_;
   output_file_.flush();
 }
@@ -63,7 +63,7 @@ void Menu::MostrarDFS() {
   std::cout << "\tVertice final: ";
   std::cin >> vertice_final;
   arbol_busqueda.DFS(vertice_inicial, vertice_final);
-  output_file_ << "ID-" << id_camino_ << "\t(DFS) Vertices: " << grafo_.GetVertices() << "  Aristas: " << grafo_.GetArcos() << "  Inicial: " << vertice_inicial << "  Final: " << vertice_final << "  Camino: " << arbol_busqueda.GetCamino() << "  Distancia: " << arbol_busqueda.GetDistanciaCamino() << "  Generados: " << arbol_busqueda.GetGenerados() << "  Analizados: " << arbol_busqueda.GetAnalizados() << '\n';
+  output_file_ << "ID-" << id_camino_ << "\t(DFS) Vertices: " << grafo_.GetVertices() << "  Aristas: " << grafo_.GetArcos() << "  Inicial: " << vertice_inicial << "  Final: " << vertice_final << "  Camino: " << arbol_busqueda.GetCamino() << "  Distancia: " << arbol_busqueda.GetDistanciaCamino() << "  Profundidad: " << arbol_busqueda.GetProfundidad() << "  Generados: " << arbol_busqueda.GetGenerados() << "  Analizados: " << arbol_busqueda.GetAnalizados() << '\n';
   ++id_camino_;
   output_file_.flush();
 }
