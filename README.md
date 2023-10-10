@@ -1,4 +1,4 @@
-# Prácticas Inteligencia Artifical, <span style="color: purple">ULL</span>
+# Prácticas Inteligencia Artifical, ULL
 
 Todas las prácticas de la asignatura Inteligencia Artificial de 3º año de Ingeniería Informática de la ULL 23/24
 ## Lista de prácticas
