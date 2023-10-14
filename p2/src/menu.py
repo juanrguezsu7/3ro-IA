@@ -1,11 +1,31 @@
+"""
+Módulo que contiene la clase Menu.
+
+:file: menu.py
+:author: Juan Rodríguez Suárez
+:date: 14/10/2023
+"""
+
 from laberinto import Laberinto
 
 class Menu:
+  """
+  Clase que muestra un menú con distintas opciones para interactuar con un laberinto.
+  """
+
   def __init__(self) -> None:
+    """
+    Constructor de la clase Menu. Carga el laberinto y el archivo de salida.
+    """
+
     self.CargarLaberinto()
     self.CargarArchivoSalida()
    
   def MostrarOpciones(self) -> None:
+    """
+    Muestra las opciones del menú y ejecuta la opción elegida por el usuario.
+    """
+
     while True:
       print("1) Calcular camino.\n2) Cambiar entrada y salida.\n3) Cargar laberinto.\n4) Imprimir laberinto.\n0) Salir.\n")
       opcion = input("Elegir opción: ")
@@ -22,6 +42,10 @@ class Menu:
         break
 
   def CargarArchivoSalida(self) -> None:
+    """
+    Carga el archivo de salida.
+    """
+
     nombre_fichero_salida = input("Introduca un fichero de salida: ")
     while True:
       try:
@@ -31,4 +55,8 @@ class Menu:
         nombre_fichero_salida = input("Introduca un fichero de salida válido: ")
 
   def CargarLaberinto(self) -> None:
+    """
+    Carga el laberinto.
+    """
+    
     self.laberinto = Laberinto()
