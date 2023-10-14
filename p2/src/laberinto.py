@@ -1,7 +1,7 @@
 from arbol import Arbol
 
-COSTE_HORIZONTAL_VERTICAL = 5
-COSTE_DIAGONAL = 10
+COSTE_HORIZONTAL_VERTICAL = 3
+COSTE_DIAGONAL = 7
 
 class Laberinto:
   def __init__(self) -> None:
