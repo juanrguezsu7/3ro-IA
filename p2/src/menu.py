@@ -7,6 +7,7 @@ Módulo que contiene la clase Menu.
 """
 
 from laberinto import Laberinto
+from time import time
 
 class Menu:
   """
@@ -20,17 +21,20 @@ class Menu:
 
     self.CargarLaberinto()
     self.CargarArchivoSalida()
-   
+
   def MostrarOpciones(self) -> None:
     """
     Muestra las opciones del menú y ejecuta la opción elegida por el usuario.
     """
 
     while True:
-      print("1) Calcular camino.\n2) Cambiar entrada y salida.\n3) Cargar laberinto.\n4) Imprimir laberinto.\n0) Salir.\n")
+      print("1) Calcular camino.\n2) Cambiar entrada y salida.\n3) Cargar laberinto.\n4) Imprimir laberinto.\n5) Cambiar función heurística.\n0) Salir.\n")
       opcion = input("Elegir opción: ")
       if opcion == '1':
+        start_time = time()
         self.laberinto.AEstrella()
+        end_time = time()
+        print(f"El método AEstrella tardó {end_time - start_time} segundos en ejecutarse usando como función heurística {self.laberinto.GetFuncionHeuristica()}.")
         self.laberinto.EscribirInstancia(self.fichero_salida)
       elif opcion == '2':
         self.laberinto.CambiarEntradaSalida()
@@ -38,6 +42,8 @@ class Menu:
         self.CargarLaberinto()
       elif opcion == '4':
         print(self.laberinto)
+      elif opcion == '5':
+        self.laberinto.CambiarFuncionHeuristica()
       elif opcion == '0':
         break
 

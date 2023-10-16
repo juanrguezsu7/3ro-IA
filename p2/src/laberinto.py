@@ -25,6 +25,7 @@ class Laberinto:
     self.id_camino = 0
     self.arbol = None
     self.solucionado = False
+    self.funcion_heuristica = self.DistanciaManhattan
   
   def __str__(self) -> str:
     """
@@ -67,10 +68,10 @@ class Laberinto:
 
     :return: True si se ha encontrado el camino, False en caso contrario.
     """
-
+    
     self.solucionado = False # Reseteamos el estado del laberinto
     self.id_camino += 1 # Aumentar ID del camino.
-    self.arbol = Arbol(self.GetEntrada(), self.DistanciaManhattan(self.GetEntrada())) # Creando el Arbol con el nodo inicial que se corresponde a la casilla de salida.
+    self.arbol = Arbol(self.GetEntrada(), self.funcion_heuristica(self.GetEntrada())) # Creando el Arbol con el nodo inicial que se corresponde a la casilla de salida.
     nodos_abiertos = {self.GetEntrada(): self.arbol.head} # Lo añadimos a la lista de nodos abiertos.
     nodos_cerrados = {} # Inicializamos la lista de nodos cerrados.
     while len(nodos_abiertos) > 0: # Mientras haya nodos en la lista de nodos abiertos.
@@ -93,7 +94,7 @@ class Laberinto:
         elif any(coordenadas == casilla_adyacente for coordenadas in nodos_cerrados.keys()): # Comprobar que las coordenadas de la casilla vecina actual no están en la lista de nodos cerrados.
           pass
         else: # Si no está en ninguna de las listas, generar un nuevo nodo.
-          nodos_abiertos.update({casilla_adyacente: self.arbol.CrearNodo(casilla_adyacente, nodo_actual.coste_acumulado + coste_movimiento, self.DistanciaManhattan(casilla_adyacente), nodo_actual)})
+          nodos_abiertos.update({casilla_adyacente: self.arbol.CrearNodo(casilla_adyacente, nodo_actual.coste_acumulado + coste_movimiento, self.funcion_heuristica(casilla_adyacente), nodo_actual)})
     return False
 
   def EscribirInstancia(self, fichero_salida) -> None:
@@ -168,6 +169,32 @@ class Laberinto:
 
     return self.laberinto[coordenadas[0] - 1][coordenadas[1] - 1]
   
+  def CambiarFuncionHeuristica(self) -> None:
+    """
+    Cambia la función heurística del algoritmo de búsqueda.
+
+    :return:
+    """
+
+    print("1) Distancia Manhattan\n2) Distancia Euclideana\n")
+    opcion = input("Elegir opción: ")
+    if opcion == '1':
+      self.funcion_heuristica = self.DistanciaManhattan
+    elif opcion == '2':
+      self.funcion_heuristica = self.DistanciaEuclideana
+   
+  def GetFuncionHeuristica(self) -> str:
+    """
+    Devuelve la función heurística del algoritmo de búsqueda.
+
+    :return: Función heurística del algoritmo de búsqueda.
+    """
+
+    if self.funcion_heuristica == self.DistanciaManhattan:
+      return "Distancia Manhattan"
+    elif self.funcion_heuristica == self.DistanciaEuclideana:
+      return "Distancia Euclideana"
+  
   def DistanciaManhattan(self, coordenadas_inicial) -> int:
     """
     Calcula la distancia Manhattan entre dos puntos.
@@ -179,6 +206,17 @@ class Laberinto:
     coordenadas_salida = self.GetSalida()
     return (abs(coordenadas_inicial[0] - coordenadas_salida[0]) + abs(coordenadas_inicial[1] - coordenadas_salida[1])) * COSTE_HORIZONTAL_VERTICAL
   
+  def DistanciaEuclideana(self, coordenadas_inicial) -> float:
+    """
+    Calcula la distancia Euclideana entre dos puntos.
+
+    :param coordenadas_inicial: Coordenadas del punto inicial.
+    :return: Distancia Euclideana entre los dos puntos.
+    """
+
+    coordenadas_salida = self.GetSalida()
+    return ((coordenadas_inicial[0] - coordenadas_salida[0]) ** 2 + (coordenadas_inicial[1] - coordenadas_salida[1]) ** 2) ** 0.5 * COSTE_HORIZONTAL_VERTICAL
+
   def CasillasAdyacentes(self, coordenadas) -> list:
     """
     Devuelve las casillas adyacentes a una casilla.
