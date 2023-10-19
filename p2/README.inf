@@ -1,0 +1,5 @@
+***USO DEL PROGRAMA***
+1) Abra la consola de comandos en su sistema operativo.
+2) Ejecute el siguiente comando en la consola: python src/main.py.
+3) Cuando el programa le pida que seleccione un laberinto, debe especificar la ruta desde la carpeta tests. Por ejemplo, si el archivo de laberinto se llama M_1.dat y se encuentra en la carpeta tests, debe escribir tests/M_1.dat cuando el programa se lo solicite.
+4) El programa le mostrará la solución del laberinto seleccionado en el archivo de salida que le especifique.
