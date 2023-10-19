@@ -3,7 +3,7 @@ Módulo que contiene la clase Arbol y Nodo.
 
 :file: arbol.py
 :author: Juan Rodríguez Suárez
-:date: 14/10/2023
+:date: 13/10/2023
 """
 
 class Nodo:
