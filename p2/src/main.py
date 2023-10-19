@@ -4,7 +4,7 @@ muestra las opciones disponibles para encontrar el camino óptimo de un laberint
 
 :file: main.py
 :author: Juan Rodríguez Suárez
-:date: 14/10/2023
+:date: 12/10/2023
 """
 
 from sys import exit
